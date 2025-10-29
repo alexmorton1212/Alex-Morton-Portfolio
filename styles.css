@@ -24,15 +24,28 @@
   
   /* ===== Header ===== */
   header {
-    background: var(--navy);
     color: white;
-    padding: 2rem 0;
+    padding: 0;
     width: 100%;
+    background: none;
   }
   
   .header-content {
     max-width: 1200px;
     margin: 0 auto;
+    text-align: center;
+  }
+
+  .name-section {
+    background: var(--navy);
+    padding: 2rem 0;
+    text-align: center;
+    color: white;
+  }
+  
+  .nav-section {
+    background: var(--carolina-blue);
+    padding: 1rem 0;
     text-align: center;
   }
 
@@ -46,18 +59,18 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
-    margin-top: 1rem;
+    margin: 0;
   }
   
   nav a {
-    color: white;
+    color: var(--navy);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease;
   }
   
   nav a:hover {
-    color: var(--pop-color);
+    color: white;
   }
   
   /* ===== Sections & Layout ===== */
