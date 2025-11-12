@@ -29,9 +29,9 @@ body {
   color: #1f1f1f;
   /* ✨ 3-tone diagonal gradient background */
   background: linear-gradient(135deg,
-    var(--gradient-1) 0%,
+    var(--gradient-3) 0%,
     var(--gradient-2) 60%,
-    var(--gradient-3) 100%);
+    var(--gradient-1) 100%);
   background-attachment: fixed;
   min-height: 100vh;
 }
