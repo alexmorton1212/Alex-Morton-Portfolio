@@ -9,7 +9,8 @@
   --carolina-blue: #7BAFD4;
   --navy: #003057;
   --light-grey: #f8f8f8;
-  --pop-color: #B3A369;
+  /* --pop-color: #B3A369; */
+  --pop-color: #7BAFD4;
   --dark-purple: #2a0f57;
   --deep-indigo: #1b0033;
   --gradient-1: #706a3f;
@@ -40,11 +41,11 @@ body {
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
-    transform: translateY(20px); /* Slide up from 20px below */
+    transform: translateX(-40px); /* Slide up from 20px below */
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -65,17 +66,40 @@ header {
 }
 
 .name-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
   background: rgba(0, 0, 0, 0.4);
-  padding: 2rem 0;
-  text-align: center;
   color: white;
-  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  padding: 3rem 2rem;
+  max-width: 1200px;
+
+  /* ✨ Centers the container and keeps horizontal spacing */
+  margin: 4rem auto 2rem auto; /* top, horizontal auto, bottom */
+  width: calc(100% - 2rem);    /* leaves ~1rem margin on each side */
+
+  transition: box-shadow 0.3s ease;
+
+  opacity: 0;
+  animation: fadeIn 4s ease forwards;
 }
 
 /* .name-section h1 {
   opacity: 0;
   animation: fadeIn 5s ease forwards;
 } */
+
+.header-icons {
+  display: flex; /* ensures icons are in a row */
+  gap: 1.5rem; /* space between icons */
+}
 
 .nav-section {
   background: rgba(255, 255, 255, 0.1);
@@ -115,7 +139,20 @@ nav a:hover {
   color: var(--pop-color);
 }
 
+.nav-icon {
+  width: 35px;      /* adjust size */
+  height: 35px;
+  filter: brightness(100%) invert(100%); /* make them white if needed */
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+nav a:hover .nav-icon {
+  filter: brightness(50%) invert(1); /* optional color effect */
+  transform: scale(1.4);
+}
+
 /* ===== Modern Section Containers ===== */
+
 .section {
   display: flex;
   justify-content: center;
@@ -135,14 +172,10 @@ nav a:hover {
   max-width: 1200px;
   transition: box-shadow 0.3s ease;
 
-  /* opacity: 0;
+  opacity: 0;
   animation: fadeIn 4s ease forwards;
-  animation-delay: 2s; */
+  animation-delay: 1s;
 }
-
-/* .section-content:nth-child(1) { animation-delay: 1s; }
-.section-content:nth-child(2) { animation-delay: 3s; }
-.section-content:nth-child(3) { animation-delay: 5s; } */
 
 .section-content:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
@@ -233,8 +266,10 @@ footer {
 
 @media (max-width: 600px) {
   nav ul {
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: row; /* keep them in a row */
+    gap: 1rem;           /* adjust spacing as needed */
+    flex-wrap: wrap;     /* wrap if they exceed screen width */
+    justify-content: center;
   }
   .card {
     width: 100%;
