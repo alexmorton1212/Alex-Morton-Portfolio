@@ -9,15 +9,16 @@
   --carolina-blue: #7BAFD4;
   --navy: #003057;
   --light-grey: #f8f8f8;
-  /* --pop-color: #B3A369; */
-  --pop-color: #7BAFD4;
+  --pop-color: #B3A369;
   --dark-purple: #2a0f57;
   --deep-indigo: #1b0033;
   --gradient-1: #706a3f;
   --gradient-2: #5b8b96;
   --gradient-3: #56338e;
+
   --card-color: #ffffff;
   --card-button-start: #3b5759;
+  --card-button-end: #51879f;
 }
 
 html {
@@ -197,13 +198,18 @@ nav a:hover .nav-icon {
 }
 
 .card {
-  background: var(--card-color);
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 12px;
   width: calc((100% / 3) - 1rem);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+  /* box-shadow: 0 6px 16px rgba(0,0,0,0.07); */
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .card:hover {
@@ -213,12 +219,14 @@ nav a:hover .nav-icon {
 
 .card h3 {
   margin-bottom: 0.5rem;
-  color: #333;
+  /* color: #333; */
+  color: white;
 }
 
 .card p {
   font-size: 0.95rem;
-  color: #666;
+  /* color: #666; */
+  color: white;
   margin-bottom: 1rem;
 }
 
@@ -245,7 +253,7 @@ nav a:hover .nav-icon {
 
 .card a:hover,
 .card-link-button:hover {
-  background-color: var(--pop-color);
+  background-color: var(--card-button-end);
 }
 
 /* ===== Footer ===== */
