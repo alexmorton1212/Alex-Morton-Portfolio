@@ -12,6 +12,7 @@
   --pop-color: #B3A369;
   --dark-purple: #2a0f57;
   --deep-indigo: #1b0033;
+  
   --gradient-1: #706a3f;
   --gradient-2: #5b8b96;
   --gradient-3: #56338e;
@@ -53,7 +54,6 @@ body::before {
   z-index: -1;
   background-repeat: no-repeat;
   background-size: cover;
-  will-change: transform; /* helps with smooth scrolling */
 }
 
 /* ===== Fade/Slide-in Animation ===== */
