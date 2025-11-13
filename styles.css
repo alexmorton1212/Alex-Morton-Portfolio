@@ -118,46 +118,10 @@ header {
   gap: 1.5rem;
 }
 
-.nav-section {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1rem 0;
-  text-align: center;
-  backdrop-filter: blur(6px);
-  margin-bottom: 2rem;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-nav li {
-  font-size: 1.2rem;
-}
-
-nav a {
-  color: #f0f0f0;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-nav a:hover {
-  color: var(--pop-color);
-}
-
 .nav-icon {
   width: 35px;
   height: 35px;
   filter: brightness(100%) invert(100%);
-}
-
-nav a:hover .nav-icon {
-  filter: brightness(50%) invert(1);
-  transform: scale(1.4);
 }
 
 
@@ -170,9 +134,6 @@ nav a:hover .nav-icon {
   justify-content: center;
   padding: 2rem 1rem;
   margin-bottom: 0rem;
-
-  opacity: 0; /* start hidden */
-  animation: fadeSlideFromRight 2s ease forwards; /* fadeSlideIn over 1 second */
 }
 
 .section h2 {
@@ -203,6 +164,20 @@ nav a:hover .nav-icon {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
+#games {
+  opacity: 0;
+  animation: fadeSlideFromRight 2s ease forwards;
+}
+
+#projects {
+  opacity: 0;
+  animation: fadeSlideFromLeft 2s ease forwards;
+}
+
+#coursework {
+  opacity: 0;
+  animation: fadeSlideFromRight 2s ease forwards;
+}
 
 /* ------------------------------------------------------------ */
 /* Cards
