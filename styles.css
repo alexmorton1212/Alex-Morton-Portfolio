@@ -30,12 +30,30 @@ body {
   line-height: 1.6;
   color: #1f1f1f;
   /* ✨ 3-tone diagonal gradient background */
+  /* background: linear-gradient(135deg,
+    var(--gradient-3) 0%,
+    var(--gradient-2) 60%,
+    var(--gradient-1) 100%);
+  background-attachment: fixed; */
+  min-height: 100vh;
+}
+
+/* keeps gradient visually fixed on all devices */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(135deg,
     var(--gradient-3) 0%,
     var(--gradient-2) 60%,
     var(--gradient-1) 100%);
-  background-attachment: fixed;
-  min-height: 100vh;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  will-change: transform; /* helps with smooth scrolling */
 }
 
 /* ===== Fade/Slide-in Animation ===== */
