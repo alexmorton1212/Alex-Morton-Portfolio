@@ -231,8 +231,16 @@ nav a:hover .nav-icon {
 }
 
 .card-thumb {
-  width: 96px;
+  width: 90px;
   height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+#coursework .card-thumb {
+  width: auto;
+  height: 60px;
   object-fit: contain;
   display: block;
   margin: 0 auto 1rem auto;
