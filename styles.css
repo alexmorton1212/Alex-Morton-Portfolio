@@ -235,6 +235,11 @@ header {
   margin: 0 auto 1rem auto;
 }
 
+#eraser .card-thumb {
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
 #coursework .card-thumb {
   width: auto;
   height: 60px;
