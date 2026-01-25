@@ -170,12 +170,12 @@ header h1 {
 
 #games {
   opacity: 0;
-  animation: fadeSlideFromRight 2s ease forwards;
+  animation: fadeSlideFromLeft 2s ease forwards;
 }
 
 #projects {
   opacity: 0;
-  animation: fadeSlideFromLeft 2s ease forwards;
+  animation: fadeSlideFromRight 2s ease forwards;
 }
 
 #coursework {
