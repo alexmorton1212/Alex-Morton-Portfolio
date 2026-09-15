@@ -27,15 +27,84 @@ const colorBank = [
   { id: "seafoam", name: "Seafoam", rgb: [104, 202, 178] },
   { id: "steel", name: "Steel", rgb: [104, 132, 160] },
   { id: "midnight", name: "Midnight", rgb: [69, 88, 132] },
+  { id: "maroon", name: "Maroon", rgb: [128, 38, 61] },
+  { id: "navy", name: "Navy", rgb: [42, 68, 123] },
+  { id: "espresso", name: "Espresso", rgb: [102, 70, 60] },
+  { id: "olive", name: "Olive", rgb: [123, 136, 48] },
+  { id: "deep-teal", name: "Deep teal", rgb: [29, 125, 123] },
+  { id: "spruce", name: "Spruce", rgb: [36, 111, 87] },
+  { id: "ochre", name: "Ochre", rgb: [185, 132, 37] },
+  { id: "terracotta", name: "Terracotta", rgb: [194, 91, 70] },
+  { id: "brick", name: "Brick", rgb: [172, 62, 58] },
+  { id: "orchid", name: "Orchid", rgb: [204, 122, 207] },
+  { id: "amethyst", name: "Amethyst", rgb: [137, 92, 166] },
+  { id: "periwinkle", name: "Periwinkle", rgb: [151, 164, 230] },
+  { id: "powder", name: "Powder blue", rgb: [174, 216, 230] },
+  { id: "blush", name: "Blush", rgb: [255, 181, 193] },
+  { id: "butter", name: "Butter", rgb: [255, 239, 168] },
+  { id: "pistachio", name: "Pistachio", rgb: [177, 218, 164] },
+  { id: "lilac", name: "Lilac", rgb: [206, 181, 240] },
+  { id: "apricot", name: "Apricot", rgb: [255, 190, 124] },
+  { id: "melon", name: "Melon", rgb: [245, 142, 112] },
+  { id: "ice", name: "Ice", rgb: [167, 226, 237] },
+  { id: "sage", name: "Sage", rgb: [142, 173, 120] },
+  { id: "denim", name: "Denim", rgb: [70, 104, 166] },
+  { id: "mulberry", name: "Mulberry", rgb: [151, 57, 120] },
+  { id: "wine", name: "Wine", rgb: [112, 44, 75] },
+  { id: "charcoal", name: "Charcoal", rgb: [61, 73, 91] },
+  { id: "cobalt", name: "Cobalt", rgb: [49, 93, 186] },
+  { id: "jade", name: "Jade", rgb: [49, 159, 117] },
+  { id: "lemon", name: "Lemon", rgb: [244, 228, 79] },
+];
+
+const fallbackPuzzles = [
+  {
+    paletteIds: [
+      "spruce", "apricot", "periwinkle", "crimson", "pistachio", "jade",
+      "midnight", "royal", "turquoise", "steel", "mint", "lemon",
+    ],
+    solution: [
+      "royal", "periwinkle", "apricot",
+      "pistachio", "spruce", "crimson",
+      "turquoise", "jade", "lemon",
+    ],
+  },
+  {
+    paletteIds: [
+      "sun", "navy", "amethyst", "crimson", "butter", "brick",
+      "sand", "espresso", "slate", "ice", "ochre", "olive",
+    ],
+    solution: [
+      "sun", "ice", "navy",
+      "brick", "crimson", "espresso",
+      "ochre", "sand", "amethyst",
+    ],
+  },
+  {
+    paletteIds: [
+      "olive", "periwinkle", "cobalt", "coral", "amethyst", "orchid",
+      "ice", "blush", "chartreuse", "espresso", "deep-teal", "forest",
+    ],
+    solution: [
+      "forest", "amethyst", "deep-teal",
+      "blush", "ice", "chartreuse",
+      "orchid", "cobalt", "espresso",
+    ],
+  },
 ];
 
 const board = Array(9).fill(null);
+const MIN_TARGET_DISTANCE = 48;
+const MIN_PALETTE_COLOR_DISTANCE = 50;
+const SOLUTION_ATTEMPTS_PER_PALETTE = 8;
+const PALETTE_ATTEMPT_LIMIT = 15;
 let palette = [];
 let solution = [];
 let colorsById = new Map();
 let targetRows = [];
 let targetColumns = [];
 let selectedColorId = null;
+let isGameComplete = false;
 
 const boardGrid = document.querySelector("#board-grid");
 const paletteGrid = document.querySelector("#palette-grid");
@@ -46,6 +115,9 @@ const themeToggle = document.querySelector("#theme-toggle");
 const infoModal = document.querySelector("#info-modal");
 const infoOpen = document.querySelector("#info-open");
 const infoClose = document.querySelector("#info-close");
+const completionModal = document.querySelector("#completion-modal");
+const completionNewGame = document.querySelector("#completion-new-game");
+const completionClose = document.querySelector("#completion-close");
 
 function toCssColor(rgb) {
   return `rgb(${rgb.join(" ")})`;
@@ -74,24 +146,90 @@ function shuffled(items) {
   return copy;
 }
 
-function solutionColors(indices) {
-  return indices.map((index) => colorsById.get(solution[index]));
+function buildTargets(candidateSolution, colorMap) {
+  const solutionColors = candidateSolution.map((colorId) => colorMap.get(colorId));
+
+  return {
+    rows: [
+      average(solutionColors.slice(0, 3)),
+      average(solutionColors.slice(3, 6)),
+      average(solutionColors.slice(6, 9)),
+    ],
+    columns: [
+      average([solutionColors[0], solutionColors[3], solutionColors[6]]),
+      average([solutionColors[1], solutionColors[4], solutionColors[7]]),
+      average([solutionColors[2], solutionColors[5], solutionColors[8]]),
+    ],
+  };
+}
+
+function colorDistance(first, second) {
+  return Math.hypot(
+    first[0] - second[0],
+    first[1] - second[1],
+    first[2] - second[2],
+  );
+}
+
+function createDistinctPalette() {
+  const candidatePalette = [];
+
+  shuffled(colorBank).forEach((color) => {
+    const isDistinct = candidatePalette.every((existingColor) => (
+      colorDistance(color.rgb, existingColor.rgb) >= MIN_PALETTE_COLOR_DISTANCE
+    ));
+
+    if (isDistinct && candidatePalette.length < 12) {
+      candidatePalette.push(color);
+    }
+  });
+
+  return candidatePalette.length === 12 ? candidatePalette : null;
+}
+
+function minimumTargetDistance(targets) {
+  const allTargets = [...targets.rows, ...targets.columns];
+  let minimumDistance = Infinity;
+
+  allTargets.forEach((target, index) => {
+    allTargets.slice(index + 1).forEach((otherTarget) => {
+      minimumDistance = Math.min(minimumDistance, colorDistance(target, otherTarget));
+    });
+  });
+
+  return minimumDistance;
+}
+
+function applyPuzzle(candidatePalette, candidateSolution, targets) {
+  palette = candidatePalette;
+  colorsById = new Map(palette.map((color) => [color.id, color]));
+  solution = candidateSolution;
+  targetRows = targets.rows;
+  targetColumns = targets.columns;
 }
 
 function createPuzzle() {
-  palette = shuffled(colorBank).slice(0, 12);
-  colorsById = new Map(palette.map((color) => [color.id, color]));
-  solution = shuffled(palette).slice(0, 9).map((color) => color.id);
-  targetRows = [
-    average(solutionColors([0, 1, 2])),
-    average(solutionColors([3, 4, 5])),
-    average(solutionColors([6, 7, 8])),
-  ];
-  targetColumns = [
-    average(solutionColors([0, 3, 6])),
-    average(solutionColors([1, 4, 7])),
-    average(solutionColors([2, 5, 8])),
-  ];
+  for (let paletteAttempt = 0; paletteAttempt < PALETTE_ATTEMPT_LIMIT; paletteAttempt += 1) {
+    const candidatePalette = createDistinctPalette();
+    if (!candidatePalette) continue;
+    const candidateColors = new Map(candidatePalette.map((color) => [color.id, color]));
+
+    for (let solutionAttempt = 0; solutionAttempt < SOLUTION_ATTEMPTS_PER_PALETTE; solutionAttempt += 1) {
+      const candidateSolution = shuffled(candidatePalette).slice(0, 9).map((color) => color.id);
+      const targets = buildTargets(candidateSolution, candidateColors);
+
+      if (minimumTargetDistance(targets) >= MIN_TARGET_DISTANCE) {
+        applyPuzzle(candidatePalette, candidateSolution, targets);
+        return;
+      }
+    }
+  }
+
+  // Pre-validated fallbacks keep the minimum target separation intact at the hard time limit.
+  const fallback = fallbackPuzzles[Math.floor(Math.random() * fallbackPuzzles.length)];
+  const fallbackPalette = fallback.paletteIds.map((colorId) => colorBank.find((color) => color.id === colorId));
+  const fallbackColors = new Map(fallbackPalette.map((color) => [color.id, color]));
+  applyPuzzle(fallbackPalette, fallback.solution, buildTargets(fallback.solution, fallbackColors));
 }
 
 function makeCircle({ type, index, targetColor = null }) {
@@ -222,13 +360,14 @@ function updateGame() {
     const colorId = board[Number(cell.dataset.index)];
     const color = colorsById.get(colorId);
     cell.classList.toggle("is-filled", Boolean(color));
+    cell.disabled = isGameComplete;
     cell.style.backgroundColor = color ? toCssColor(color.rgb) : "";
     cell.setAttribute("aria-label", color ? `${color.name}; click to remove` : `Board space ${Number(cell.dataset.index) + 1}`);
   });
 
   document.querySelectorAll(".palette-color").forEach((button) => {
     const isUsed = board.includes(button.dataset.colorId);
-    button.disabled = isUsed;
+    button.disabled = isUsed || isGameComplete;
     button.classList.toggle("is-selected", button.dataset.colorId === selectedColorId);
   });
 
@@ -267,6 +406,14 @@ function updateGame() {
   } else {
     instructions.textContent = "Choose a color, then choose a space on the board.";
   }
+
+  clearButton.disabled = isGameComplete;
+
+  if (isComplete && !isGameComplete) {
+    isGameComplete = true;
+    updateGame();
+    showCompletion();
+  }
 }
 
 clearButton.addEventListener("click", () => {
@@ -275,18 +422,24 @@ clearButton.addEventListener("click", () => {
   updateGame();
 });
 
-newGameButton.addEventListener("click", () => {
+function startNewGame() {
   createPuzzle();
   board.fill(null);
   selectedColorId = null;
+  isGameComplete = false;
+  completionModal.hidden = true;
   updateTargets();
   createPalette();
   updateGame();
-});
+}
+
+newGameButton.addEventListener("click", startNewGame);
+completionNewGame.addEventListener("click", startNewGame);
 
 function updateThemeToggle() {
   const isLight = document.documentElement.dataset.theme === "light";
-  themeToggle.textContent = isLight ? "Dark mode" : "Light mode";
+  themeToggle.textContent = isLight ? "☀" : "☾";
+  themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
   themeToggle.setAttribute("aria-pressed", String(isLight));
 }
 
@@ -310,6 +463,16 @@ function closeInfo() {
   infoOpen.focus();
 }
 
+function showCompletion() {
+  completionModal.hidden = false;
+  completionNewGame.focus();
+}
+
+function closeCompletion() {
+  completionModal.hidden = true;
+  newGameButton.focus();
+}
+
 infoOpen.addEventListener("click", () => {
   infoModal.classList.remove("is-open");
   infoModal.hidden = false;
@@ -323,8 +486,12 @@ infoModal.addEventListener("click", (event) => {
   if (event.target === infoModal) closeInfo();
 });
 
+completionClose.addEventListener("click", closeCompletion);
+
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !infoModal.hidden) closeInfo();
+  if (event.key !== "Escape") return;
+  if (!infoModal.hidden) closeInfo();
+  if (!completionModal.hidden) closeCompletion();
 });
 
 if (localStorage.getItem("palette-theme") === "light") {

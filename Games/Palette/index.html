@@ -9,16 +9,17 @@
   </head>
   <body>
     <header class="game-header">
-      <h1>Palette</h1>
+      <div class="title-group">
+        <h1>Palette</h1>
+        <div class="title-actions">
+          <button class="icon-button" type="button" id="info-open" aria-label="How to play">?</button>
+          <button class="icon-button theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light mode" aria-pressed="false">☾</button>
+        </div>
+      </div>
     </header>
 
     <main>
       <aside class="game-panel controls-panel" aria-label="Game controls">
-        <div class="control-group" role="group" aria-label="Display and help">
-          <button class="theme-toggle" type="button" id="info-open">Info</button>
-          <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">Light mode</button>
-        </div>
-        <div class="control-divider" aria-hidden="true"></div>
         <div class="control-group game-controls" role="group" aria-label="Game actions">
           <button class="text-button" type="button" id="new-game">New game</button>
           <button class="text-button" type="button" id="clear-board">Clear board</button>
@@ -56,6 +57,16 @@
           <li>Each bottom circle blends the colors in its column.</li>
           <li>Match every blend to its target circle to complete the puzzle.</li>
         </ul>
+      </section>
+    </div>
+
+    <div class="info-modal completion-modal" id="completion-modal" hidden>
+      <section class="info-dialog completion-dialog" role="dialog" aria-modal="true" aria-labelledby="completion-title">
+        <h2 id="completion-title">Nice Job!</h2>
+        <div class="modal-actions">
+          <button class="text-button" type="button" id="completion-new-game">New game</button>
+          <button class="text-button" type="button" id="completion-close">Close</button>
+        </div>
       </section>
     </div>
     <script type="module" src="main.js"></script>
