@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10121c" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="game-header">
+      <h1>Palette</h1>
+    </header>
+
+    <main>
+      <aside class="game-panel controls-panel" aria-label="Game controls">
+        <div class="control-group" role="group" aria-label="Display and help">
+          <button class="theme-toggle" type="button" id="info-open">Info</button>
+          <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">Light mode</button>
+        </div>
+        <div class="control-divider" aria-hidden="true"></div>
+        <div class="control-group game-controls" role="group" aria-label="Game actions">
+          <button class="text-button" type="button" id="new-game">New game</button>
+          <button class="text-button" type="button" id="clear-board">Clear board</button>
+        </div>
+      </aside>
+
+      <section class="game-panel board-panel" aria-label="Puzzle board">
+        <p class="visually-hidden" id="instructions" aria-live="polite">Choose a color, then choose a space on the board.</p>
+
+        <div class="board" aria-label="Palette game board">
+          <div class="board-grid" id="board-grid"></div>
+        </div>
+      </section>
+
+      <section class="game-panel color-tray" aria-label="Color palette">
+        <div class="palette-grid" id="palette-grid"></div>
+      </section>
+    </main>
+
+    <div class="info-modal" id="info-modal" hidden>
+      <section class="info-dialog" role="dialog" aria-modal="true" aria-labelledby="info-title">
+        <button class="modal-close" type="button" id="info-close" aria-label="Close information">×</button>
+        <h2 id="info-title">How to play</h2>
+        <p>Use nine of the twelve colors to fill the center grid. Three colors are decoys.</p>
+        <div class="blend-demo" aria-hidden="true">
+          <div class="demo-circle demo-goal"></div>
+          <div class="demo-circle demo-input demo-red"></div>
+          <div class="demo-circle demo-input demo-blue"></div>
+          <div class="demo-circle demo-input demo-yellow"></div>
+          <div class="demo-circle demo-output"></div>
+        </div>
+        <p class="demo-note">The left circle is the target. As colors are added, the circle on the right blends their colors.</p>
+        <ul>
+          <li>Each right-side circle blends the colors in its row.</li>
+          <li>Each bottom circle blends the colors in its column.</li>
+          <li>Match every blend to its target circle to complete the puzzle.</li>
+        </ul>
+      </section>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
