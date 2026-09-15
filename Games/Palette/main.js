@@ -368,6 +368,7 @@ function updateGame() {
   document.querySelectorAll(".palette-color").forEach((button) => {
     const isUsed = board.includes(button.dataset.colorId);
     button.disabled = isUsed || isGameComplete;
+    button.classList.toggle("is-used", isUsed);
     button.classList.toggle("is-selected", button.dataset.colorId === selectedColorId);
   });
 
