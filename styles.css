@@ -10,20 +10,17 @@
 }
 
 :root {
-  --carolina-blue: #7BAFD4;
-  --navy: #003057;
-  --light-grey: #f8f8f8;
-  --pop-color: #B3A369;
-  --dark-purple: #2a0f57;
-  --deep-indigo: #1b0033;
+  --gradient-1: #2c5a78;
+  --gradient-2: #1d3557;
+  --gradient-3: #0f1c2e;
 
-  --gradient-1: #706a3f;
-  --gradient-2: #5b8b96;
-  --gradient-3: #56338e;
-
-  --card-color: #ffffff;
-  --card-button-start: #3b5759;
-  --card-button-end: #51879f;
+  --glass: rgba(255, 255, 255, 0.12);
+  --glass-hover: rgba(255, 255, 255, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.78);
+  --button: #4a77a3;
+  --icon-tile: rgba(255, 255, 255, 0.85);
 }
 
 html {
@@ -33,11 +30,12 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  color: #1f1f1f;
+  color: var(--text);
   min-height: 100vh;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
-  background: none;
+  background: var(--gradient-2);
 }
 
 
@@ -53,14 +51,9 @@ body::before {
   background: linear-gradient(
     135deg,
     var(--gradient-3) 0%,
-    var(--gradient-2) 60%,
+    var(--gradient-2) 55%,
     var(--gradient-1) 100%
   );
-  background-size: cover;
-  background-repeat: no-repeat;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  contain: layout paint;
 }
 
 
@@ -68,19 +61,39 @@ body::before {
 /* Animations
 /* ------------------------------------------------------------ */
 
-@keyframes fadeSlideFromLeft {
-  0% { opacity: 0; transform: translateX(-40px); }
-  100% { opacity: 1; transform: translateX(0); }
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeSlideFromRight {
-  0% { opacity: 0; transform: translateX(40px); }
-  100% { opacity: 1; transform: translateX(0); }
+.site-header,
+.section {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+#games { animation-delay: 0.15s; }
+#coursework { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .section {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+
+/* ------------------------------------------------------------ */
+/* Layout
+/* ------------------------------------------------------------ */
+
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 2rem;
 }
 
 
@@ -88,43 +101,42 @@ body::before {
 /* Header
 /* ------------------------------------------------------------ */
 
-header {
-  width: 100%;
-}
-
-header h1 {
-  font-size: 2.5rem;
-}
-
-.name-section {
+.site-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.75rem;
-  background: rgba(0, 0, 0, 0.4);
-  color: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 3rem 2rem;
-  max-width: 1200px;
-  margin: 4rem auto 2rem auto;
-  width: calc(100% - 2rem);
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--glass-border);
+}
 
-  opacity: 0; /* start hidden */
-  animation: fadeSlideFromLeft 2s ease forwards; /* fadeSlideIn over 1 second */
+.site-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .header-icons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
+}
+
+.header-icons a {
+  display: flex;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.header-icons a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .nav-icon {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   filter: brightness(100%) invert(100%);
 }
 
@@ -134,162 +146,177 @@ header h1 {
 /* ------------------------------------------------------------ */
 
 .section {
+  margin-bottom: 3.5rem;
+}
+
+.section-header {
   display: flex;
-  justify-content: center;
-  padding: 2rem 1rem;
-  margin-bottom: 0rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 2.5rem;
-  color: white;
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.section-content {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 3rem 2rem;
-  width: 100%;
-  max-width: 1200px;
-  transition: box-shadow 0.3s ease;
-
-  /* GPU Optimization */
-  will-change: transform, opacity;
-  transform: translateZ(0);
-}
-
-.section-content:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-}
-
-#games {
-  opacity: 0;
-  animation: fadeSlideFromLeft 2s ease forwards;
-}
-
-#projects {
-  opacity: 0;
-  animation: fadeSlideFromRight 2s ease forwards;
-}
-
-#coursework {
-  opacity: 0;
-  animation: fadeSlideFromRight 2s ease forwards;
-}
 
 /* ------------------------------------------------------------ */
 /* Cards
 /* ------------------------------------------------------------ */
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
+.card-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.games-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.course-grid {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .card {
-  background: rgba(224, 224, 224, 0.2);
-  padding: 1.5rem;
-  border-radius: 12px;
-  width: calc((100% / 3) - 1rem);
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
-  /* GPU Optimization */
-  will-change: transform, opacity;
-  transform: translateZ(0);
-
-  opacity: 0; /* start hidden */
-  animation: fadeIn 5s ease forwards; /* fadeSlideIn over 1 second */
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+/* Only game cards lift; course cards aren't clickable */
+.game-card:hover {
+  transform: translateY(-3px);
+  background: var(--glass-hover);
 }
 
 .card h3 {
-  margin-bottom: 0.5rem;
-  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .card p {
-  font-size: 0.95rem;
-  color: white;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Game cards */
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.75rem 1.25rem 1.5rem;
+}
+
+.card-icon {
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: var(--icon-tile);
+  margin-bottom: 1.25rem;
 }
 
 .card-thumb {
-  width: 90px;
-  height: auto;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  display: block;
-  margin: 0 auto 1rem auto;
 }
 
 #eraser .card-thumb {
   transform: rotate(45deg);
-  transform-origin: center;
 }
 
-#coursework .card-thumb {
-  width: auto;
-  height: 60px;
+.game-card h3 {
+  margin-bottom: 0.4rem;
 }
 
-#coursework img {
+.game-card p {
+  margin-bottom: 1.25rem;
+}
+
+/* Push the button to the bottom so all game cards line up */
+.game-card a {
+  margin-top: auto;
+}
+
+/* Course cards */
+
+.course-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.course-logo {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
   filter: grayscale(100%) invert(100%) brightness(500%) opacity(80%);
 }
+
+.course-card h3 {
+  margin-bottom: 0.15rem;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Buttons
+/* ------------------------------------------------------------ */
 
 .card a,
 .card-link-button {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
-  background: rgb(61, 89, 120);
+  padding: 0.55rem 1.2rem;
+  background: var(--button);
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin: 4px;
-  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .card a:hover,
 .card-link-button:hover {
-  /* background: rgba(122, 151, 169, 0.7); */
-  background: rgba(255, 255, 255, 0.5);
-  color: rgb(61, 89, 120, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--button);
 }
 
-#coursework .card a:hover,
-#coursework .card-link-button:hover {
-  background: rgba(255, 255, 255, 0.5);
-  color: rgb(61, 89, 120);
+.card-link-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
 
 /* ------------------------------------------------------------ */
 /* Footer
 /* ------------------------------------------------------------ */
 
 footer {
-  background: rgba(0, 0, 0, 0.4);
-  color: #f0f0f0;
-  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem;
   text-align: center;
-  backdrop-filter: blur(4px);
-  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-note {
+  font-size: 0.75rem;
+  opacity: 0.8;
 }
 
 
@@ -297,21 +324,32 @@ footer {
 /* Responsiveness
 /* ------------------------------------------------------------ */
 
-@media (max-width: 900px) {
-  .card {
-    width: calc((100% / 2) - 1rem);
+@media (max-width: 960px) {
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  nav ul {
-    flex-direction: row;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
+  .page {
+    padding: 2.5rem 1rem 1.5rem;
   }
 
-  .card {
-    width: 100%;
+  .site-header h1 {
+    font-size: 1.85rem;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .games-grid {
+    grid-template-columns: 1fr;
   }
 }

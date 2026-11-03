@@ -15,212 +15,132 @@
 </head>
 <body>
 
-  <!-- Header-->
-  <header>
-    <div class="name-section">
+  <main class="page">
+
+    <!-- Header -->
+    <header class="site-header">
       <h1>Alexander Morton</h1>
-      <div class="header-icons">
-        <a href="https://www.linkedin.com/in/alexander-b-morton/" target="_blank">
+      <nav class="header-icons" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/alexander-b-morton/" target="_blank" aria-label="LinkedIn">
           <img src="Images/linkedin.svg" alt="LinkedIn" class="nav-icon">
         </a>
-        <a href="https://github.com/alexmorton1212" target="_blank">
+        <a href="https://github.com/alexmorton1212" target="_blank" aria-label="GitHub">
           <img src="Images/github.svg" alt="GitHub" class="nav-icon">
         </a>
+      </nav>
+    </header>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
+      <div class="section-header">
+        <h2>Games</h2>
       </div>
-    </div>
-  </header>
+      <div class="card-grid games-grid">
 
-  <!-- Projects Section -->
-  <section id="projects" class="section">
-    <div class="section-content">
-      <h2>Projects</h2>
-      <div class="card-container">
-
-        <div class="card">
-          <img
-            src="Images/hierarchical-structure.png"
-            alt="DelayOver Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Stable Diffusion Pipeline</h3>
-          <p>Inspect methodology used to create a Text-to-Image model</p>
-          <a href="Projects/The Home Depot/gt-the-home-depot-practicum.pdf" target="_blank" rel="noopener noreferrer">View Report</a>
-        </div>
-
-        <div class="card">
-          <img
-            src="Images/airplane.svg"
-            alt="DelayOver Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>DelayOver</h3>
-          <p>Evaluate flight delays between the 50 busiest U.S. airports</p>
-          <a href="https://delayover.streamlit.app/" target="_blank" rel="noopener noreferrer">View Project</a>
-        </div>
-
-        <div class="card">
-          <img
-            src="Images/basketball.svg"
-            alt="NBA Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>NBA Connections</h3>
-          <p>Assess linkages between NBA players<br>(View on Chrome Desktop)</p>
-          <a href="Projects/NBA Connections/nba-connections.html" target="_blank" rel="noopener noreferrer">View Project</a>
-          <a href="Projects/NBA Connections/NBA-Connections-Report.pdf" target="_blank" rel="noopener noreferrer">View Report</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-<!-- Games Section -->
-<section id="games" class="section">
-    <div class="section-content">
-      <h2>Games</h2>
-      <div class="card-container">
-  
-        <div class="card" id="eraser">
-          <img
-            src="Images/eraser.svg"
-            alt="Letterase Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
+        <article class="card game-card" id="eraser">
+          <div class="card-icon">
+            <img src="Images/eraser.svg" alt="Letterase Icon" class="card-thumb" loading="lazy" />
+          </div>
           <h3>Letterase</h3>
           <p>The last letter of one word becomes the first letter of the next</p>
           <a href="Games/Letterase/index.html" target="_blank" rel="noopener noreferrer">Play Now</a>
-        </div>
+        </article>
 
-        <div class="card">
-          <img
-            src="Images/clouds.svg"
-            alt="Letterase 2 Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
+        <article class="card game-card">
+          <div class="card-icon">
+            <img src="Images/clouds.svg" alt="Letterase 2 Icon" class="card-thumb" loading="lazy" />
+          </div>
           <h3>Doubles</h3>
           <p>The last two letters of one word become the first two letters of the next</p>
           <a href="Games/Letterase2/index.html" target="_blank" rel="noopener noreferrer">Play Now</a>
-        </div>
-  
-        <div class="card">
-          <img
-            src="Images/grid.svg"
-            alt="Cornerase Icon"
-            class="card-thumb"
-            loading="lazy"
-          />
+        </article>
+
+        <article class="card game-card">
+          <div class="card-icon">
+            <img src="Images/grid.svg" alt="Cornerase Icon" class="card-thumb" loading="lazy" />
+          </div>
           <h3>Corners</h3>
           <p>Use the beginnings and ends of words to create a square</p>
           <a href="Games/Cornerase/index.html" target="_blank" rel="noopener noreferrer">Play Now</a>
-        </div>
+        </article>
 
-        <div class="card">
-          <img
-            src="Games/Palette/preview.svg"
-            alt="Palette color swatches"
-            class="card-thumb"
-            loading="lazy"
-          />
+        <article class="card game-card">
+          <div class="card-icon">
+            <img src="Images/palette.svg" alt="Paint palette icon" class="card-thumb" loading="lazy" />
+          </div>
           <h3>Palette</h3>
-          <p>A new color game, coming soon</p>
+          <p>Blend nine colors so every row and column matches its target</p>
           <a href="Games/Palette/index.html" target="_blank" rel="noopener noreferrer">Play Now</a>
-        </div>
-  
+        </article>
+
       </div>
-    </div>
-  </section>
+    </section>
 
-
-<!-- Coursework Section -->
-<section id="coursework" class="section">
-    <div class="section-content">
-      <h2>Coursework</h2>
-      <div style="text-align:center; margin-bottom: 2rem;">
+    <!-- Coursework Section -->
+    <section id="coursework" class="section">
+      <div class="section-header">
+        <h2>Coursework</h2>
         <a href="Coursework/coursework.html" class="card-link-button" target="_blank" rel="noopener noreferrer">View All Coursework</a>
       </div>
-      <div class="card-container">
-  
-        <div class="card" id="chapel-hill">
-          <img
-            src="Images/unc-logo.png"
-            alt="UNC Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Files and Databases</h3>
-          <p>JavaScript, SQL, PHP, HTML, CSS</p>
-        </div>
+      <div class="card-grid course-grid">
 
-        <div class="card" id="georgia-tech">
-          <img
-            src="Images/gt-logo.svg.png"
-            alt="GT Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Data and Visual Analytics</h3>
-          <p>Python, Docker, D3, AWS, GCP, Flask, Hadoop</p>
-        </div>
-  
-        <div class="card">
-          <img
-            src="Images/unc-logo.png"
-            alt="UNC Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Computer Security Concepts</h3>
-          <p>C, Linux, Network Security, Authentication</p>
-        </div>
-  
-        <div class="card">
-          <img
-            src="Images/gt-logo.svg.png"
-            alt="GT Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Applied Analytics Practicum</h3>
-          <p>AI/ML, TensorFlow, PyTorch, LLM, Scikit-Learn</p>
-        </div>
+        <article class="card course-card" id="chapel-hill">
+          <img src="Images/unc-logo.png" alt="UNC Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Files and Databases</h3>
+            <p>JavaScript, SQL, PHP, HTML, CSS</p>
+          </div>
+        </article>
 
-        <div class="card">
-          <img
-            src="Images/unc-logo.png"
-            alt="UNC Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Modern Web Programming</h3>
-          <p>Git, REST API, JavaScript, HTML, CSS</p>
-        </div>
-  
-        <div class="card">
-          <img
-            src="Images/gt-logo.svg.png"
-            alt="GT Seal"
-            class="card-thumb"
-            loading="lazy"
-          />
-          <h3>Data Analytics for Business</h3>
-          <p>R, Python, Machine Learning, Excel, VBA</p>
-        </div>
-  
+        <article class="card course-card" id="georgia-tech">
+          <img src="Images/gt-logo.svg.png" alt="GT Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Data and Visual Analytics</h3>
+            <p>Python, Docker, D3, AWS, GCP</p>
+          </div>
+        </article>
+
+        <article class="card course-card">
+          <img src="Images/unc-logo.png" alt="UNC Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Computer Security Concepts</h3>
+            <p>C, Linux, Network Security, Authentication</p>
+          </div>
+        </article>
+
+        <article class="card course-card">
+          <img src="Images/gt-logo.svg.png" alt="GT Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Applied Analytics Practicum</h3>
+            <p>AI/ML, TensorFlow, PyTorch, LLM, Scikit-Learn</p>
+          </div>
+        </article>
+
+        <article class="card course-card">
+          <img src="Images/unc-logo.png" alt="UNC Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Modern Web Programming</h3>
+            <p>Git, REST API, JavaScript, HTML, CSS</p>
+          </div>
+        </article>
+
+        <article class="card course-card">
+          <img src="Images/gt-logo.svg.png" alt="GT Seal" class="course-logo" loading="lazy" />
+          <div>
+            <h3>Data Analytics for Business</h3>
+            <p>R, Python, Machine Learning, Excel, VBA</p>
+          </div>
+        </article>
+
       </div>
-    </div>
-  </section>
-  
+    </section>
+
+  </main>
+
   <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Alexander Morton</p>
-      <p>Logos are trademarks of their respective universities and are used here for educational reference only</p>
-    </div>
+    <p>&copy; 2025 Alexander Morton</p>
+    <p class="footer-note">Logos are trademarks of their respective universities and are used here for educational reference only</p>
   </footer>
 
 </body>

@@ -4,38 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alex Morton Coursework</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="coursework.css" />
 </head>
 <body>
 
-  <h1>All Coursework</h1>
+  <main class="page">
 
-  <div class="filters" aria-label="Filter Coursework">
-    <div>
-      <label for="filter-university">University:</label>
-      <select id="filter-university">
-        <option value="">All</option>
-      </select>
-    </div>
-    <div>
-        <label for="filter-department">Department:</label>
-        <select id="filter-department">
-          <option value="">All</option>
-        </select>
+    <header class="site-header">
+      <div>
+        <h1>All Coursework</h1>
+        <p class="course-count" id="course-count" aria-live="polite"></p>
       </div>
-    <div>
-      <label for="filter-skills">Skills:</label>
-      <select id="filter-skills">
-        <option value="">All</option>
-      </select>
-    </div>
-  </div>
+      <a href="../index.html" class="back-link">&larr; Portfolio</a>
+    </header>
 
-  <div class="course-list" id="course-list" aria-live="polite">
-    <!-- Coursework cards injected here by JS -->
-  </div>
+    <div class="filters" aria-label="Filter Coursework">
+      <div class="filter" data-key="university">
+        <span class="filter-label" id="label-university">University</span>
+        <button type="button" class="filter-toggle" aria-haspopup="true" aria-expanded="false" aria-labelledby="label-university">All</button>
+        <div class="filter-menu" hidden>
+          <div class="filter-options" role="group" aria-labelledby="label-university"></div>
+          <button type="button" class="filter-clear">Clear</button>
+        </div>
+      </div>
+      <div class="filter" data-key="department">
+        <span class="filter-label" id="label-department">Department</span>
+        <button type="button" class="filter-toggle" aria-haspopup="true" aria-expanded="false" aria-labelledby="label-department">All</button>
+        <div class="filter-menu" hidden>
+          <div class="filter-options" role="group" aria-labelledby="label-department"></div>
+          <button type="button" class="filter-clear">Clear</button>
+        </div>
+      </div>
+      <div class="filter" data-key="roles">
+        <span class="filter-label" id="label-roles">Role</span>
+        <button type="button" class="filter-toggle" aria-haspopup="true" aria-expanded="false" aria-labelledby="label-roles">All</button>
+        <div class="filter-menu" hidden>
+          <div class="filter-options" role="group" aria-labelledby="label-roles"></div>
+          <button type="button" class="filter-clear">Clear</button>
+        </div>
+      </div>
+      <div class="filter" data-key="skills">
+        <span class="filter-label" id="label-skills">Skills</span>
+        <button type="button" class="filter-toggle" aria-haspopup="true" aria-expanded="false" aria-labelledby="label-skills">All</button>
+        <div class="filter-menu" hidden>
+          <div class="filter-options" role="group" aria-labelledby="label-skills"></div>
+          <button type="button" class="filter-clear">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-list" id="course-list">
+      <!-- Coursework cards injected here by JS -->
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Alexander Morton</p>
+    <p class="footer-note">Logos are trademarks of their respective universities and are used here for educational reference only</p>
+  </footer>
 
   <script src="coursework.js"></script>
 </body>
 </html>
-

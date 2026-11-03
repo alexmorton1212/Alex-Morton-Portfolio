@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Paint palette</title>
+  <path fill="#CEE8FA" stroke="#2D527C" stroke-width="30" stroke-linejoin="round" fill-rule="evenodd"
+    d="M256 36 C388 36 482 124 482 234 C482 304 436 336 382 326 C340 318 308 340 318 382 C330 432 296 476 236 476 C118 476 30 382 30 256 C30 134 128 36 256 36 Z
+       M196 352 m-40 0 a40 40 0 1 0 80 0 a40 40 0 1 0 -80 0 Z"/>
+  <g fill="#2D527C">
+    <circle cx="134" cy="226" r="36"/>
+    <circle cx="214" cy="136" r="36"/>
+    <circle cx="322" cy="132" r="36"/>
+    <circle cx="398" cy="218" r="36"/>
+  </g>
+</svg>
