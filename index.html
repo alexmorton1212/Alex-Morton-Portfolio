@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alex Morton Portfolio</title>
+  <script src="theme.js"></script>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,23 +12,36 @@
  <!-- https://www.flaticon.com/search?author_id=1&style_id=18&type=standard&word= -->
 
   <!-- CSS -->
+  <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <div class="starfield" aria-hidden="true">
+    <span class="shooting-star"></span>
+    <span class="shooting-star"></span>
+    <span class="shooting-star"></span>
+  </div>
 
   <main class="page">
 
     <!-- Header -->
     <header class="site-header">
       <h1>Alex Morton</h1>
+      <div class="header-actions">
+      <button class="theme-toggle" type="button" hidden>
+        <span class="theme-toggle-icon" aria-hidden="true">☀</span>
+        <span class="theme-toggle-label">Light Mode</span>
+      </button>
       <nav class="header-icons" aria-label="Social links">
         <a href="https://www.linkedin.com/in/alexander-b-morton/" target="_blank" aria-label="LinkedIn">
-          <img src="Images/linkedin.svg" alt="LinkedIn" class="nav-icon">
+          <span class="nav-icon linkedin-icon" aria-hidden="true"></span>
         </a>
         <a href="https://github.com/alexmorton1212" target="_blank" aria-label="GitHub">
-          <img src="Images/github.svg" alt="GitHub" class="nav-icon">
+          <span class="nav-icon github-icon" aria-hidden="true"></span>
         </a>
       </nav>
+      </div>
     </header>
 
     <!-- Games Section -->

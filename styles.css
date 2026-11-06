@@ -9,25 +9,12 @@
   box-sizing: border-box;
 }
 
-:root {
-  --gradient-1: #2c5a78;
-  --gradient-2: #1d3557;
-  --gradient-3: #0f1c2e;
-
-  --glass: rgba(255, 255, 255, 0.12);
-  --glass-hover: rgba(255, 255, 255, 0.18);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --text: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.78);
-  --button: #CEE8FA;
-  --icon-tile: rgba(206, 232, 250, 0.6);
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  isolation: isolate;
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   color: var(--text);
@@ -42,20 +29,6 @@ body {
 /* ------------------------------------------------------------ */
 /* Body Background
 /* ------------------------------------------------------------ */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    135deg,
-    var(--gradient-3) 0%,
-    var(--gradient-2) 55%,
-    var(--gradient-1) 100%
-  );
-}
-
 
 /* ------------------------------------------------------------ */
 /* Animations
@@ -135,9 +108,21 @@ body::before {
 }
 
 .nav-icon {
+  display: block;
   width: 30px;
   height: 30px;
-  filter: brightness(100%) invert(100%);
+  background-color: var(--text);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.linkedin-icon {
+  mask-image: url("Images/linkedin.svg");
+}
+
+.github-icon {
+  mask-image: url("Images/github.svg");
 }
 
 
@@ -261,7 +246,7 @@ body::before {
   width: 44px;
   height: 44px;
   object-fit: contain;
-  filter: grayscale(100%) invert(100%) brightness(500%) opacity(80%);
+  filter: var(--course-filter);
 }
 
 .course-card h3 {
@@ -278,7 +263,7 @@ body::before {
   display: inline-block;
   padding: 0.55rem 1.2rem;
   background: var(--button);
-  color: white;
+  color: var(--text);
   border-radius: 8px;
   text-decoration: none;
   font-size: 0.9rem;
@@ -289,14 +274,20 @@ body::before {
 
 .card a:hover,
 .card-link-button:hover {
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--gradient-3);
+  background: var(--button-hover);
+  color: var(--button-hover-text);
 }
 
 .game-card a,
 .card-link-button {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--button-border);
+}
+
+.game-card a:hover,
+.card-link-button:hover {
+  background: #1d3557;
+  color: #ffffff;
 }
 
 
@@ -335,6 +326,15 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
   .page {
     padding: 2.5rem 1rem 1.5rem;
   }

@@ -10,21 +10,17 @@
 }
 
 :root {
-  --gradient-1: #2c5a78;
-  --gradient-2: #1d3557;
-  --gradient-3: #0f1c2e;
-
-  --glass: rgba(255, 255, 255, 0.12);
-  --glass-hover: rgba(255, 255, 255, 0.18);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --text: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.78);
-  --button: #4a77a3;
   --carolina-blue: #7BAFD4;
   --gt-gold: #B3A369;
+  --filter-menu: #16294a;
+}
+
+:root[data-theme="morning"] {
+  --filter-menu: #eef5fc;
 }
 
 body {
+  isolation: isolate;
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   color: var(--text);
@@ -39,20 +35,6 @@ body {
 /* ------------------------------------------------------------ */
 /* Body Background
 /* ------------------------------------------------------------ */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    135deg,
-    var(--gradient-3) 0%,
-    var(--gradient-2) 55%,
-    var(--gradient-1) 100%
-  );
-}
-
 
 /* ------------------------------------------------------------ */
 /* Animations
@@ -126,8 +108,8 @@ body::before {
 .back-link {
   display: inline-block;
   padding: 0.55rem 1.2rem;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--text);
+  border: 1px solid var(--button-border);
   border-radius: 8px;
   text-decoration: none;
   font-size: 0.9rem;
@@ -137,8 +119,8 @@ body::before {
 }
 
 .back-link:hover {
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--button);
+  background: #1d3557;
+  color: #ffffff;
 }
 
 
@@ -162,6 +144,11 @@ body::before {
   gap: 0.35rem;
 }
 
+/* Raise the whole open filter above neighboring controls on mobile. */
+.filter:has(.filter-toggle[aria-expanded="true"]) {
+  z-index: 2;
+}
+
 .filter-label {
   font-size: 0.8rem;
   font-weight: 600;
@@ -176,7 +163,7 @@ body::before {
   font-family: inherit;
   font-size: 0.95rem;
   text-align: left;
-  color: white;
+  color: var(--text);
   background-color: var(--glass);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -197,15 +184,19 @@ body::before {
   background-color: var(--glass-hover);
 }
 
+:root[data-theme="morning"] .filter-toggle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231d3557' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
 .filter-toggle:focus-visible,
 .filter-toggle[aria-expanded="true"] {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: var(--text);
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
 .filter.active .filter-toggle {
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: var(--button-border);
   background-color: var(--glass-hover);
 }
 
@@ -213,11 +204,12 @@ body::before {
 
 .filter-menu {
   position: absolute;
+  z-index: 1;
   top: calc(100% + 0.4rem);
   left: 0;
   right: 0;
   padding: 0.4rem;
-  background: #16294a;
+  background: var(--filter-menu);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
@@ -239,7 +231,7 @@ body::before {
 }
 
 .filter-option:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-hover);
 }
 
 .filter-option input {
@@ -284,7 +276,7 @@ body::before {
 }
 
 .filter-clear:hover {
-  color: white;
+  color: var(--text);
 }
 
 
@@ -293,6 +285,8 @@ body::before {
 /* ------------------------------------------------------------ */
 
 .course-list {
+  position: relative;
+  z-index: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
@@ -337,7 +331,7 @@ body::before {
   width: 30px;
   height: 30px;
   object-fit: contain;
-  filter: grayscale(100%) invert(100%) brightness(500%);
+  filter: brightness(0) invert(1);
 }
 
 /* TA marker: sits inside the card's top-right corner */
@@ -430,6 +424,11 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .site-header,
+  .header-actions {
+    flex-wrap: wrap;
+  }
+
   .page {
     padding: 2.5rem 1rem 1.5rem;
   }
