@@ -19,8 +19,8 @@
   --glass-border: rgba(255, 255, 255, 0.2);
   --text: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.78);
-  --button: #4a77a3;
-  --icon-tile: rgba(255, 255, 255, 0.85);
+  --button: #CEE8FA;
+  --icon-tile: rgba(206, 232, 250, 0.6);
 }
 
 html {
@@ -185,12 +185,11 @@ body::before {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   border-radius: 14px;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-/* Only game cards lift; course cards aren't clickable */
+/* Highlight game cards on hover */
 .game-card:hover {
-  transform: translateY(-3px);
   background: var(--glass-hover);
 }
 
@@ -291,9 +290,10 @@ body::before {
 .card a:hover,
 .card-link-button:hover {
   background: rgba(255, 255, 255, 0.85);
-  color: var(--button);
+  color: var(--gradient-3);
 }
 
+.game-card a,
 .card-link-button {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.5);
